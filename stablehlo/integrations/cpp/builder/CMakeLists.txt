@@ -133,7 +133,7 @@ add_mlir_library(StablehloBuilder
   MLIRSupport  # LLVMSupport is automatically added in AddLLVM.cmake.
 )
 
-if (TARGET llvm_gtest)
+if (STABLEHLO_ENABLE_TESTS AND TARGET llvm_gtest)
     set_target_properties(check-stablehlo-ci PROPERTIES FOLDER "Tests")
     add_unittest(check-stablehlo-ci "unittests"
       MlirBuilderTest.cpp
@@ -141,7 +141,7 @@ if (TARGET llvm_gtest)
       StablehloBuilderTest.cpp
       AttrTypeBuilderUtilTest.cpp
     )
-  else()
+  elseif(STABLEHLO_ENABLE_TESTS)
     message(WARNING "gtest not found, unittests will not be available")
   endif()
 

@@ -14,6 +14,6 @@
 
 add_subdirectory(c++)
 
-if(STABLEHLO_ENABLE_BINDINGS_PYTHON)
+if(STABLEHLO_ENABLE_BINDINGS_PYTHON AND STABLEHLO_ENABLE_TESTS)
   add_subdirectory(python)
 endif()

@@ -197,4 +197,6 @@ add_mlir_python_modules(StablehloUnifiedPythonModules
 # Tests
 ################################################################################
 
-add_subdirectory(tests)
+if(STABLEHLO_ENABLE_TESTS)
+  add_subdirectory(tests)
+endif()

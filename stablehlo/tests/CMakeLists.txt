@@ -13,20 +13,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-configure_lit_site_cfg(
-  ${CMAKE_CURRENT_SOURCE_DIR}/lit.site.cfg.py.in
-  ${CMAKE_CURRENT_BINARY_DIR}/lit.site.cfg.py
-  MAIN_CONFIG
-  ${CMAKE_CURRENT_SOURCE_DIR}/lit.cfg.py
-)
-add_lit_testsuite(check-stablehlo-tests "Running the tests/ suite"
-  ${CMAKE_CURRENT_BINARY_DIR}
-  DEPENDS
-  FileCheck not
-  stablehlo-opt
-  stablehlo-translate
-)
-add_dependencies(check-stablehlo-quick check-stablehlo-tests)
+if(STABLEHLO_ENABLE_TESTS)
+  configure_lit_site_cfg(
+    ${CMAKE_CURRENT_SOURCE_DIR}/lit.site.cfg.py.in
+    ${CMAKE_CURRENT_BINARY_DIR}/lit.site.cfg.py
+    MAIN_CONFIG
+    ${CMAKE_CURRENT_SOURCE_DIR}/lit.cfg.py
+  )
+  add_lit_testsuite(check-stablehlo-tests "Running the tests/ suite"
+    ${CMAKE_CURRENT_BINARY_DIR}
+    DEPENDS
+    FileCheck not
+    stablehlo-opt
+    stablehlo-translate
+  )
+  add_dependencies(check-stablehlo-quick check-stablehlo-tests)
+endif()
 
 set(LLVM_TARGET_DEFINITIONS TestUtils.td)
 mlir_tablegen(TestUtils.h.inc -gen-pass-decls -name HloTest)

@@ -19,11 +19,13 @@ llvm_update_compile_flags(example-add)
 target_link_libraries(example-add PRIVATE StablehloOps StablehloReferenceApi)
 
 mlir_check_all_link_libraries(example-add)
-add_custom_target(example-add-test
-  COMMAND example-add
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-  COMMENT "Executing example-add to validate it works."
-  DEPENDS
-    example-add
-)
-add_dependencies(check-stablehlo-quick example-add-test)
+if(STABLEHLO_ENABLE_TESTS)
+  add_custom_target(example-add-test
+    COMMAND example-add
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMENT "Executing example-add to validate it works."
+    DEPENDS
+      example-add
+  )
+  add_dependencies(check-stablehlo-quick example-add-test)
+endif()

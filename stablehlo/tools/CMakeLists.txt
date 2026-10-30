@@ -96,4 +96,6 @@ target_link_libraries(stablehlo-lsp-server PRIVATE ${LIBS})
 # We don't have tests for stablehlo-lsp-server, so we at least attach it to
 # one of our test suites.
 mlir_check_all_link_libraries(stablehlo-lsp-server)
-add_dependencies(check-stablehlo-quick stablehlo-lsp-server)
+if(STABLEHLO_ENABLE_TESTS)
+  add_dependencies(check-stablehlo-quick stablehlo-lsp-server)
+endif()
